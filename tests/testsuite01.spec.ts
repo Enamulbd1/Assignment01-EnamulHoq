@@ -2,6 +2,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from './pages/login-page';
 import { DashboardPage } from './pages/dashboard-page';
+import { CreateNewClient } from './pages/createNewClient-pages';
 
 test.describe('Test suite 01', () => {
   test('Test case 01', async ({ page }) => {
@@ -14,5 +15,6 @@ test.describe('Test suite 01', () => {
     await dashboardPage.performLogout();
     await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible(); 
     await page.waitForTimeout(5000);
+
   });
 });

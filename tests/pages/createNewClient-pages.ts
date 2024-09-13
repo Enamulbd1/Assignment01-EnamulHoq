@@ -6,7 +6,7 @@ export class CreateNewClient {
   //Attributes
   readonly page: Page;
   readonly viewButton: Locator;
-  readonly creteClientButtion: Locator;
+  readonly createClientButtion: Locator;
   readonly nameTextfield: Locator; 
   readonly emailTextfield: Locator;
   readonly telephoneTextfield: Locator;
@@ -20,7 +20,7 @@ export class CreateNewClient {
   constructor(page: Page) {
     this.page = page;
     this.viewButton = page.locator("#app > div > div > div:nth-child(2) > a")
-    this.creteClientButtion = page.getByRole('link', { name: 'Create Client' })
+    this.createClientButtion = page.getByRole('link', { name: 'Create Client' })
 
     this.nameTextfield = page.locator('div').filter({ hasText: /^Name$/ }).getByRole('textbox');
     this.emailTextfield = page.locator('input[type="email"]');
@@ -32,7 +32,7 @@ export class CreateNewClient {
   async logToClient(){
 
     await this.viewButton.click();
-    await this.creteClientButtion.click();
+    await this.createClientButtion.click();
     this.fullname = faker.person.fullName();
     await this.nameTextfield.fill(this.fullname);
     this.emailaddress = faker.internet.email();
@@ -40,15 +40,11 @@ export class CreateNewClient {
     this.telephonenummber = faker.phone.number();
     await this.telephoneTextfield.fill(this.telephonenummber);
     await this.saveButton.click();
-
-
   }
  async createClient(){
-    this.creteClientButtion.click()
+    this.createClientButtion.click()
 
  } 
-
-
   async performCreateClient(name: string, email:string, telephone: string) {
     //fill out the form - 2 textfields and click the submit button
     const fakeName = faker.person.fullName();
@@ -65,7 +61,5 @@ export class CreateNewClient {
         email: this.emailaddress,
         telephone: this.telephonenummber,
     }
-
-
   }
 }
