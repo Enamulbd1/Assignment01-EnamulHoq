@@ -72,7 +72,49 @@ test.describe('Test suite 01', () => {
 
   });
 
- 
+  test('Tase case 05, creating a new reservation and asserting', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.performLogin(`${process.env.TEST_USERNAME}`,`${process.env.TEST_PASSWORD}`);
+    const dashboardPage = new DashboardPage(page);
+    const reservationsPage = new ReservationsPage(page);
+
+    await dashboardPage.gotoReservationsView();
+    await reservationsPage.gotoCreateReservation();
+    await reservationsPage.goBackFromReservationsPage();
+    await expect(reservationsPage.page).toHaveURL(/.*reservations/);
+  });
+
+  
+  test('Tase case 06, delete an existing room and assert', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.performLogin(`${process.env.TEST_USERNAME}`,`${process.env.TEST_PASSWORD}`);
+    const dashboardPage = new DashboardPage(page);
+    const roomsPage = new RoomsPage(page);
+    
+    await dashboardPage.gotoRoomsView();
+    await roomsPage.deleteRoom(0); 
+
+    const roomLocator = page.locator('text="Room 101"'); 
+    await expect(roomLocator).toHaveCount(0);
+  });
+
+  test('Tase case 07: delete an existing client and assert', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.performLogin(`${process.env.TEST_USERNAME}`,`${process.env.TEST_PASSWORD}`);
+    const dashboardPage = new DashboardPage(page);
+    const clientsPage = new ClientsPage(page);
+
+    await dashboardPage.gotoClientsView();
+    await clientsPage.deleteClient(0); 
+
+    const clientNameLocator = page.locator('text=Jonas Hellman'); 
+    await expect(clientNameLocator).toHaveCount(0);
+    
+  });
+
 
 
 

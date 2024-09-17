@@ -4,7 +4,7 @@ import { faker, Faker, th } from '@faker-js/faker';
 
 export class CreateBillPage {
   readonly page: Page;
-  readonly pageHeading: Locator;
+  readonly pageTitle: Locator;
   readonly billValueTextField: Locator;
   readonly billPaidCheckBox: Locator;
   readonly save: Locator;
@@ -13,7 +13,7 @@ export class CreateBillPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.pageHeading = page.getByText('New Bill');
+    this.pageTitle = page.getByText('New Bill');
     this.billValueTextField = page.getByRole('spinbutton');
     this.billPaidCheckBox = page.locator('.checkbox');
     this.save = page.getByText('Save');

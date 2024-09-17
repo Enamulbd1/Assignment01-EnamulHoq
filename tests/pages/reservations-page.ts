@@ -4,7 +4,7 @@ export class ReservationsPage {
     readonly page: Page;
     readonly pageHeading: Locator;
     readonly createReservationButton: Locator;
-    readonly reservationKebabMenuButton: Locator;
+    readonly resevationOptionButtion: Locator;
     readonly editReservationOption: Locator;
     readonly deleteReservationOption: Locator;
     readonly backButton: Locator;
@@ -13,7 +13,7 @@ export class ReservationsPage {
         this.page = page;
         this.pageHeading = page.getByText('Reservations');
         this.createReservationButton = page.getByRole('link', { name: 'Create Reservation' });
-        this.reservationKebabMenuButton = page.getByRole('img');
+        this.resevationOptionButtion = page.getByRole('img');
         this.editReservationOption = page.getByText('Edit');
         this.deleteReservationOption = page.getByText('Delete');
         this.backButton = page.getByRole('link', { name: 'Back' });
@@ -24,7 +24,7 @@ export class ReservationsPage {
     }
 
     async deleteReservation(index: number){
-        await this.reservationKebabMenuButton.nth(index).click();
+        await this.resevationOptionButtion.nth(index).click();
         await this.deleteReservationOption.click();
     }
 
