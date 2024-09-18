@@ -24,12 +24,8 @@ export class CreateBillPage {
   async createBill(){   
 
     const randomAmount = faker.number.int({ min: 100, max: 10000 }); 
-    await this.billValueTextField.fill(randomAmount.toString());  // Since the fill() method expects string data, I convert the generated integer to a string.
+    await this.billValueTextField.fill(randomAmount.toString()); 
 
-    // const shouldTickCheckbox = faker.datatype.boolean();
-    // if (shouldTickCheckbox) {
-    //   await this.billPaidCheckBox.check();
-    // };
 
     await this.save.click();
     return randomAmount;
