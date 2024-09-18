@@ -19,7 +19,7 @@ test.describe('Test suite 01', () => {
     await loginPage.performLogin(`${process.env.TEST_USERNAME}`,`${process.env.TEST_PASSWORD}`);
   
     const dashboardPage = new DashboardPage(page);
-    await expect(dashboardPage.pageHeading).toBeVisible();
+    await expect(dashboardPage.pageTitle).toBeVisible();
  
     await expect(page.getByRole('heading', { name: 'Tester Hotel Overview' })).toBeVisible();
     await page.waitForTimeout(2000);   

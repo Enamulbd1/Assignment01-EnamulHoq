@@ -3,7 +3,7 @@ import { expect, type Locator, type Page } from "@playwright/test";
 
 export class DashboardPage {
   readonly page: Page;
-  readonly pageHeading: Locator;
+  readonly pageTitle: Locator;
   readonly roomsViewButton: Locator;
   readonly clientsViewButton: Locator;
   readonly billsViewButton: Locator;
@@ -13,7 +13,7 @@ export class DashboardPage {
   // I used css selector in places with dynamic content.
   constructor(page: Page) {
     this.page = page;
-    this.pageHeading = page.getByRole("heading", {
+    this.pageTitle = page.getByRole("heading", {
       name: "Tester Hotel Overview",
     });
     this.roomsViewButton = page.locator(
