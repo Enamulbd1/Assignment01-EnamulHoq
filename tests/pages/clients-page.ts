@@ -4,7 +4,7 @@ export class ClientsPage {
   readonly page: Page;
   readonly pageHeading: Locator;
   readonly creatClientButton: Locator;
-  readonly clientKebabMenuButtons: Locator;
+  readonly clientManuButtion: Locator;
   readonly editClientOption: Locator;
   readonly deleteClientOption: Locator;
   readonly backButton: Locator;
@@ -13,7 +13,7 @@ export class ClientsPage {
     this.page = page;
     this.pageHeading = page.getByText("Clients");
     this.creatClientButton = page.getByRole("link", { name: "Create Client" });
-    this.clientKebabMenuButtons = page.getByRole("img");
+    this.clientManuButtion = page.getByRole("img");
     this.editClientOption = page.getByText("Edit");
     this.deleteClientOption = page.getByText("Delete");
     this.backButton = page.getByRole("link", { name: "Back" });
@@ -25,13 +25,13 @@ export class ClientsPage {
 
   // Select specific client
   async gotoEditClient(index: number) {
-    await this.clientKebabMenuButtons.nth(index).click(); 
+    await this.clientManuButtion.nth(index).click(); 
     await this.editClientOption.click();
   }
   
   // Select specific client
   async deleteClient(index: number) {
-    await this.clientKebabMenuButtons.nth(index).click(); 
+    await this.clientManuButtion.nth(index).click(); 
     await this.deleteClientOption.click();
   }
 

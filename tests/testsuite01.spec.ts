@@ -115,128 +115,57 @@ test.describe('Test suite 01', () => {
     
   });
 
-
-
-
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* //testsuite01.ts
-import { test, expect } from '@playwright/test';
-import { LoginPage } from './pages/login-page';
-import { DashboardPage } from './pages/dashboard-page';
-import { CreatClientPage } from './pages/createClient-page';
-import { CreateBillPage} from './pages/createBill-page';
-import { CreateRoomPage } from './pages/createRoom-page';
-
-test.beforeEach(async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.goto();
-  await loginPage.performLogin(`${process.env.TEST_USERNAME}`,`${process.env.TEST_PASSWORD}`)
-  // await expect(page.getByRole('heading', { name: 'Tester Hotel Overview' })).toBeVisible();
-
-  const dashboardPage = new DashboardPage(page);
-await expect(dashboardPage.pageHeading).toBeVisible();
-});
-
-test.afterEach(async ({ page }) => {
-  const dashboardPage = new DashboardPage(page);
-  await dashboardPage.performLogout();
-  await expect(dashboardPage.pageHeading).not.toBeVisible();
-});
-
-test.describe('Test suite 01', () => {
-  test('Test case 01 - Login Page', async ({ page }) => {
+  test('Tase case 08, edit en old bill and assert the update', async ({ page }) => {
     const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.performLogin(`${process.env.TEST_USERNAME}`,`${process.env.TEST_PASSWORD}`);
     const dashboardPage = new DashboardPage(page);
+    const billsPage = new BillsPage(page);
 
-    // await loginPage.goto();
-    // await loginPage.performLogin(`${process.env.TEST_USERNAME}`,`${process.env.TEST_PASSWORD}`)
-    await expect(page.getByRole('heading', { name: 'Tester Hotel Overview' })).toBeVisible();
-    await dashboardPage.performLogout();
-    await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible(); 
-    await page.waitForTimeout(2000);
+    await dashboardPage.gotoBillsView();
+    await billsPage.gotoEditBill(0);
+    await expect(billsPage.page).toHaveURL(/.*bill/);
+    
   });
-
-
-  test('Test case 02 - Create New Room', async ({ page }) => {
-    // const loginPage = new LoginPage(page);
+  
+  test('Tase case 09: delete an old reservation and assert', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.performLogin(`${process.env.TEST_USERNAME}`,`${process.env.TEST_PASSWORD}`);
     const dashboardPage = new DashboardPage(page);
-    const createNewRoom2 = new CreateNewRoom2(page);
+    const reservationsPage = new ReservationsPage(page);
 
-     await loginPage.goto();
-     await loginPage.performLogin(`${process.env.TEST_USERNAME}`,`${process.env.TEST_PASSWORD}`)
-     await expect(page.getByRole('heading', { name: 'Tester Hotel Overview' })).toBeVisible(); 
+    await dashboardPage.gotoReservationsView();
+    await reservationsPage.deleteReservation(0);
+  
+    const reservationNameLocator = page.locator('text=Client: 1'); 
+    await expect(reservationNameLocator).toHaveCount(0); 
+  });
 
-    //asertions
-    await createNewRoom2.logToRoom();
-    await createNewRoom2.createRoom();
+  test('Tase case 10, create client', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.performLogin(`${process.env.TEST_USERNAME}`,`${process.env.TEST_PASSWORD}`);
+    const dashboardPage = new DashboardPage(page);
+    const createClient = new CreateClientPage(page);
 
-    await dashboardPage.performLogout();
-    await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible(); 
-    await page.waitForTimeout(5000);
+    await dashboardPage.gotoClientsView();
+    await page.locator("#app > div > h2 > a").click();
+    // await page.getByRole('link', { name: 'Create Client' }).click();
+    await createClient.createClient();
 
   });
 
-    test('Test case 03 Create New bills', async ({ page }) => {
-      const loginPage = new LoginPage(page);
-      const dashboardPage = new DashboardPage(page);
-      const createNewBills = new CreateNewbills(page);
 
-      await loginPage.goto();
-      await loginPage.performLogin(`${process.env.TEST_USERNAME}`,`${process.env.TEST_PASSWORD}`)
-      await expect(page.getByRole('heading', { name: 'Tester Hotel Overview' })).toBeVisible(); 
-      await createNewBills.goToBills();
 
-      await createNewBills.goToCreateBills();
-      await createNewBills.saveBills();
 
-      const filledValue = await createNewBills.fillUpBillForm();
-      const element = page.locator('#app > div > div.bills > div:nth-last-child(1)')
-      
-      //Assertions
-      expect(element).toContainText('ID');
-      expect(element).toContainText(filledValue);
-      await dashboardPage.performLogout();
-      await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible(); 
-      await page.waitForTimeout(5000);
+});
 
-    });
 
-      test('test case 04 - create new client', async ({ page }) =>{
-        const createNewClient = new CreateNewClient(page);
-        const element = page.locator(
-            "#app > div > div.clients > div:nth-last-child(1)");
-    
-        //asertions
-        await createNewClient.logToClient();
-        await createNewClient.createClient();
-        await expect(element).toContainText(createNewClient.fullname);
-        await expect(element).toContainText(createNewClient.emailaddress);
-        await expect(element).toContainText(createNewClient.telephonenummber);
-        await page.waitForTimeout(5000);
-    
-        });
-  });
- */
+
+
+
+
+
+
+
